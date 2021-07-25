@@ -1,0 +1,53 @@
+----- Basic Rules -----
+- The player gets to choose between making the code or breaking the code. 
+- The code maker creates a code made of four colors in a specific order, 
+    colors can be duplicated in the code. 
+- The code breaker gets 12 turns to guess the code
+- after each guess the code maker returns feedback based on the guess   
+    a red marker for each correct color in the correct position
+    a white marker for each correct color in the wrong position 
+    no marker for an incorrect color
+- the feedback pins are not placed in any particular order. 
+
+----- Program Steps -----
+1. display welcome message with basic rules and available colors 
+2. prompt player to choose code maker or code breaker 
+3.    *code maker*
+    1. the player will input their 4 color code 
+    2. in a loop, the computer will guess a code
+    3. the computers guess will be displayed along with the feedback markers 
+    4. this repeats until the computer guesses correctly, or runs out of turns, ending the loop 
+      *code breaker*
+    1. in a loop, the player will make a guess at the computers code
+    2. each guess will be displayed, along with the feedback markers 
+    3. this repeats until the player guesses correctly or runs out of turns, ending the loop 
+4. a message will display the result
+5 a prompt will ask the player if they would like to run the program again
+6.      *yes*
+    the program starts over from the beginning 
+        *no* 
+    an exit message is displayed. 
+
+
+----- code structure -----
+Classes 
+------
+- player 
+    -human 
+    -computer 
+- CodeBoard 
+    - CodePins 
+    - Keypins 
+
+Class Actions
+    *player*
+    - choose game mode 
+    - input code
+    *computer*
+    - generate code 
+    - generate answer
+
+    *CodeBoard*
+    -display color code in boxes (like tic tac toe)
+
+    
