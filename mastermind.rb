@@ -51,9 +51,14 @@ class Human < Player
   def valid_input?(array)
     if array.size != 4 
       return false 
-    elsif 
+    end 
+    array.each do |char| 
+      unless @@color_options.include?(char)
+        return false
+      end 
+    end 
+    true
   end 
-end
 
 class Computer < Player
   def make_code
@@ -71,8 +76,11 @@ comp = Computer.new
 comp.make_code
 player = Human.new
 loop do
-  hints = comp.eval_guess(player.get_guess)
+  loop do
+  choice = player.get_guess
+  break if valid_input?(choice)
+  end 
+  hints = comp.eval_guess(choice)
   p hints
-  break if hints == ["red", "red", "red", "red"]
+  break if hints == ["red", "red", "red", "red"]; end
 end
-p comp.code
