@@ -17,18 +17,26 @@ class Player
 
   def eval_guess(guess)
     hints = []
+    matched_color_indices = []
+    code_copy = self.code.clone
 
+    #todo break out into seperate methods
+    # Checks for colors in the same position in the guess and code match
+    # if they do, the red keypin is added to the hints array & the index is stored in matched_color_indicies
     4.times do |i|
       if guess[i] == self.code[i]
         hints << "red"
-        self.correct_colors[i] = guess[i]
+        matched_color_indices << i
       end
     end
 
-    4.times do |i|
-      
-    end 
-    whites = code_copy.intersection(leftovers)
+    #creates new arrays with the matched colors removed
+    guess = guess.reject { |el| matched_color_indices.include?(guess.index(el)) }
+    code_copy = code_copy.reject { |el| matched_color_indices.include?(code_copy.index(el)) }
+
+    #compares the two arrays and returns a new array that contains only elements that both contain
+    #a white keypin is added for each element in this new array.
+    whites = code_copy.intersection(guess)
     whites.size.times { hints << "white" }
     hints
   end
@@ -46,7 +54,7 @@ class Computer < Player
     # 4.times do |i|
     #   self.code[i] = @@color_options.sample
     # end
-    self.code = 
+    self.code = %w(r g o m)
   end
 end
 
