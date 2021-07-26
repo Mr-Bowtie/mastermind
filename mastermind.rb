@@ -47,6 +47,12 @@ class Human < Player
     puts "input guess"
     gets.chomp.chars
   end
+
+  def valid_input?(array)
+    if array.size != 4 
+      return false 
+    elsif 
+  end 
 end
 
 class Computer < Player
