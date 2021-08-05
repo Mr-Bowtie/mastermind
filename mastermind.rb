@@ -132,6 +132,17 @@ class Game
     display_code(maker.code)
   end
 
+  def play_again?
+    prompt 'Would you like to play again? ( yes | no )'
+    loop do
+      choice = gets.chomp
+      return true if %w[yes y].include?(choice)
+      return false if %w[no n].include?(choice)
+
+      prompt 'Invalid input - valid choices (yes, y, no, n) '
+    end
+  end
+
   def generate_keypins(code, guess)
     self.keypins = []
     redpins = get_red_pins(code, guess)
@@ -167,4 +178,8 @@ comp = Computer.new
 player = Human.new
 mastermind = Game.new(player, comp)
 
-mastermind.play_game
+loop do
+  system('clear')
+  mastermind.play_game
+  break unless mastermind.play_again?
+end
