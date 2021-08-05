@@ -12,7 +12,7 @@ module Display
   end
 
   def display_keypins(keypins)
-    prompt keypins.join(' ')
+    puts "|: #{keypins.join(' ')} :|"
   end
 
   def display_roles_message
@@ -20,12 +20,12 @@ module Display
   end
 
   def display_maker_message
-    prompt "Input code"
-  end 
+    prompt 'Input code'
+  end
 
   def display_breaker_message
-    prompt "Input guess"
-  end 
+    prompt 'Input guess'
+  end
 end
 
 class Player
@@ -40,10 +40,8 @@ class Player
   end
 
   def valid_input?(array)
-    return false if array.size != 4
-
     array.each do |char|
-      unless @@color_options.include?(char)
+      unless @@color_options.include?(char) && array.size == 4
         puts 'invalid input' # !display
         return false
       end
@@ -54,6 +52,7 @@ end
 
 class Human < Player
   include Display
+
   def make_code
     case role
     when 'maker'
@@ -68,6 +67,7 @@ end
 
 class Computer < Player
   include Display
+
   def make_code
     4.times do |i|
       self.code[i] = @@color_options.sample
@@ -112,20 +112,24 @@ class Game
     end
   end
 
-  def play_game #set turn limit
+  def play_game
     set_roles
     maker = (human.role == 'maker') ? human : computer # todo make set_roles return a two item array, set maker and breaker withit at once
     breaker = (human.role == 'breaker') ? human : computer
     maker.make_code
-    until keypins == %w[red red red red]
+    counter = 0
+    until keypins == %w[red red red red] || counter == 10
       loop do
         breaker.make_code
         break if breaker.valid_input?(breaker.code)
       end
+      display_code(breaker.code)
       generate_keypins(maker.code, breaker.code)
       display_keypins(keypins)
+      counter += 1
       next
     end
+    display_code(maker.code)
   end
 
   def generate_keypins(code, guess)
@@ -164,4 +168,3 @@ player = Human.new
 mastermind = Game.new(player, comp)
 
 mastermind.play_game
-
