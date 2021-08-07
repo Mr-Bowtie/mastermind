@@ -1,14 +1,23 @@
 # frozen_string_literal: true
 
+require 'rainbow'
 require 'pry'
 
 module Display
+  COLORS = { 'r' => Rainbow('  ').bg(:red),
+             'p' => Rainbow('  ').bg(:purple),
+             'o' => Rainbow('  ').bg(:orange),
+             'b' => Rainbow('  ').bg(:blue),
+             'm' => Rainbow('  ').bg(:magenta),
+             'g' => Rainbow('  ').bg(:green) }.freeze
+
   def prompt(input)
     puts "==:| #{input}"
   end
 
   def display_code(code)
-    puts code.join('')
+    code.each { |e| print COLORS[e] }
+    puts ' '
   end
 
   def display_keypins(keypins)
@@ -32,7 +41,7 @@ class Player
   include Display
   attr_accessor :code, :role
 
-  @@color_options = ['g', 'm', 'c', 'b', 'o', 'r']
+  @@color_options = ['g', 'm', 'p', 'b', 'o', 'r']
 
   def initialize
     @role = ''
@@ -93,11 +102,11 @@ class Game
       if valid_role?(choice)
         case choice
         when 'maker'
-          self.human.role = 'maker'
-          self.computer.role = 'breaker'
+          human.role = 'maker'
+          computer.role = 'breaker'
         when 'breaker'
-          self.human.role = 'breaker'
-          self.computer.role = 'maker'
+          human.role = 'breaker'
+          computer.role = 'maker'
         end
         break
       end
@@ -153,8 +162,8 @@ class Game
     # compares the two arrays and returns a new array that contains only elements that both contain
     # a white keypin is added for each element in this new array.
     whitepins = code.intersection(guess)
-    redpins.size.times { self.keypins << 'red' }
-    whitepins.size.times { self.keypins << 'white' }
+    redpins.size.times { self.keypins << Rainbow('@').red }
+    whitepins.size.times { self.keypins << Rainbow('@').white }
   end
 
   # * returns an array of all the indexes at which the guess perfectly matched the secret code
