@@ -1,39 +1,53 @@
 # frozen_string_literal: true
 
-require 'rainbow'
-require 'pry'
+require "rainbow"
+require "pry"
 
 module Display
-  COLORS = { 'r' => Rainbow('  ').bg(:red),
-             'p' => Rainbow('  ').bg(:purple),
-             'o' => Rainbow('  ').bg(:orange),
-             'b' => Rainbow('  ').bg(:blue),
-             'm' => Rainbow('  ').bg(:magenta),
-             'g' => Rainbow('  ').bg(:green) }.freeze
+  COLORS = { "r" => Rainbow("  ").bg(:red),
+             "p" => Rainbow("  ").bg(:purple),
+             "o" => Rainbow("  ").bg(:orange),
+             "b" => Rainbow("  ").bg(:blue),
+             "m" => Rainbow("  ").bg(:magenta),
+             "g" => Rainbow("  ").bg(:green) }.freeze
 
   def prompt(input)
     puts "==:| #{input}"
   end
 
+  def display_welcome_message
+    prompt "Welcome to Mastermind!"
+    prompt "In this game one player creates a secret code madeup of 4 colors from this list"
+    prompt "red, purple, orange, blue, magenta, and green"
+    display_code(COLORS.keys)
+    prompt "And the other tries to guess that code before 10 rounds are up"
+    prompt "After each guess, the code breaker will get hints in the form of keypins"
+    prompt "A red pin #{Rainbow("@").red} for every guess that is the correct color in the correct position"
+    prompt "A white pin #{Rainbow("@").white} for every guess that is a correct color, but in the wrong position"
+    prompt "Good luck!\n\n"
+    prompt "press enter to start the game"
+    gets.chomp
+  end
+
   def display_code(code)
     code.each { |e| print COLORS[e] }
-    puts ' '
+    puts " "
   end
 
   def display_keypins(keypins)
-    puts "|: #{keypins.join(' ')} :|"
+    puts "|: #{keypins.join(" ")} :|"
   end
 
   def display_roles_message
-    prompt 'Would you like to be the code-maker or code-breaker? (enter maker or breaker)' # ! Display
+    prompt "Would you like to be the code-maker or code-breaker? (enter maker or breaker)" # ! Display
   end
 
   def display_maker_message
-    prompt 'Input code'
+    prompt "Input code: Valid options (r, p, o, b, m, g) "
   end
 
   def display_breaker_message
-    prompt 'Input guess'
+    prompt "Input guess Valid options (r, p, o, b, m, g) "
   end
 end
 
@@ -41,17 +55,17 @@ class Player
   include Display
   attr_accessor :code, :role
 
-  @@color_options = ['g', 'm', 'p', 'b', 'o', 'r']
+  @@color_options = ["g", "m", "p", "b", "o", "r"]
 
   def initialize
-    @role = ''
+    @role = ""
     @code = []
   end
 
   def valid_input?(array)
     array.each do |char|
       unless @@color_options.include?(char) && array.size == 4
-        puts 'invalid input' # !display
+        puts "invalid input" # !display
         return false
       end
     end
@@ -64,10 +78,10 @@ class Human < Player
 
   def make_code
     case role
-    when 'maker'
+    when "maker"
       display_maker_message
       self.code = gets.chomp.chars
-    when 'breaker'
+    when "breaker"
       display_breaker_message
       self.code = gets.chomp.chars
     end
@@ -101,12 +115,12 @@ class Game
       choice = gets.chomp.downcase
       if valid_role?(choice)
         case choice
-        when 'maker'
-          human.role = 'maker'
-          computer.role = 'breaker'
-        when 'breaker'
-          human.role = 'breaker'
-          computer.role = 'maker'
+        when "maker"
+          human.role = "maker"
+          computer.role = "breaker"
+        when "breaker"
+          human.role = "breaker"
+          computer.role = "maker"
         end
         break
       end
@@ -114,17 +128,17 @@ class Game
   end
 
   def valid_role?(input)
-    if input == 'maker' || input == 'breaker'
+    if input == "maker" || input == "breaker"
       return true
     else
-      puts 'Invalid input : please enter maker or breaker' # ! display
+      puts "Invalid input : please enter maker or breaker" # ! display
     end
   end
 
   def play_game
     set_roles
-    maker = (human.role == 'maker') ? human : computer # todo make set_roles return a two item array, set maker and breaker withit at once
-    breaker = (human.role == 'breaker') ? human : computer
+    maker = (human.role == "maker") ? human : computer # todo make set_roles return a two item array, set maker and breaker withit at once
+    breaker = (human.role == "breaker") ? human : computer
     maker.make_code
     counter = 0
     until keypins == %w[red red red red] || counter == 10
@@ -142,13 +156,13 @@ class Game
   end
 
   def play_again?
-    prompt 'Would you like to play again? ( yes | no )'
+    prompt "Would you like to play again? ( yes | no )"
     loop do
       choice = gets.chomp
       return true if %w[yes y].include?(choice)
       return false if %w[no n].include?(choice)
 
-      prompt 'Invalid input - valid choices (yes, y, no, n) '
+      prompt "Invalid input - valid choices (yes, y, no, n) "
     end
   end
 
@@ -162,8 +176,8 @@ class Game
     # compares the two arrays and returns a new array that contains only elements that both contain
     # a white keypin is added for each element in this new array.
     whitepins = code.intersection(guess)
-    redpins.size.times { self.keypins << Rainbow('@').red }
-    whitepins.size.times { self.keypins << Rainbow('@').white }
+    redpins.size.times { self.keypins << Rainbow("@").red }
+    whitepins.size.times { self.keypins << Rainbow("@").white }
   end
 
   # * returns an array of all the indexes at which the guess perfectly matched the secret code
@@ -187,8 +201,10 @@ comp = Computer.new
 player = Human.new
 mastermind = Game.new(player, comp)
 
+system("clear")
+mastermind.display_welcome_message
 loop do
-  system('clear')
+  system("clear")
   mastermind.play_game
   break unless mastermind.play_again?
 end
