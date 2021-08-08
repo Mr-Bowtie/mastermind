@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rainbow'
-require 'pry'
 
 # Contains methods for displaying game results and messages
 module Display
