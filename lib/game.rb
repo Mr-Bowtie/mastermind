@@ -89,10 +89,13 @@ class Game
     self.keypins = []
     redpins = get_red_pin_indices(code, guess)
     remove_correct_guesses(code, guess, redpins)
-    #TODO extract whitepins
-    whitepins = guess.select { |el| code.include?(el) }.uniq
+    whitepins = get_white_pins(code, guess)
     redpins.size.times { keypins << 'red' }
     whitepins.size.times { keypins << 'white' }
+  end
+
+  def get_white_pins(filtered_code, filtered_guess)
+    filtered_guess.select { |el| filtered_code.include?(el) }.uniq
   end
 
   # * returns an array of all the indices at which the guess perfectly matched the secret code
