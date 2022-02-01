@@ -9,6 +9,6 @@ class Human < Player
 
   def make_code
     display_code_input_message
-    self.code = gets.chomp.chars
+    self.code = gets.chomp.downcase.gsub(/\s+/, '').chars
   end
 end
