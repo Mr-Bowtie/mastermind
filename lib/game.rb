@@ -1,4 +1,5 @@
 require_relative 'display'
+require_relative 'array'
 
 class Game
   include Display
@@ -84,20 +85,18 @@ class Game
   end
 
   def generate_keypins(code, guess)
+    # resets keypins
     self.keypins = []
-    redpins = get_red_pins(code, guess)
-    guess = remove_correct_guesses(guess, redpins)
-    code = remove_correct_guesses(code, redpins)
-
-    # compares the two arrays and returns a new array that contains only elements that both contain
-    # a white keypin is added for each element in this new array.
-    whitepins = code.intersection(guess)
+    redpins = get_red_pin_indices(code, guess)
+    remove_correct_guesses(code, guess, redpins)
+    #TODO extract whitepins
+    whitepins = guess.select { |el| code.include?(el) }.uniq
     redpins.size.times { keypins << 'red' }
     whitepins.size.times { keypins << 'white' }
   end
 
-  # * returns an array of all the indexes at which the guess perfectly matched the secret code
-  def get_red_pins(code, guess)
+  # * returns an array of all the indices at which the guess perfectly matched the secret code
+  def get_red_pin_indices(code, guess)
     indices = []
     4.times do |i|
       indices << i if guess[i] == code[i]
@@ -106,7 +105,9 @@ class Game
   end
 
   # * returns a new array of the elements whose index is not in the redpins array
-  def remove_correct_guesses(code, redpins)
-    code.reject { |el| redpins.include?(code.index(el)) }
+  def remove_correct_guesses(code, guess, redpins)
+    remove_redpins = lambda { |input| input.reject! { |el| redpins.include?(input.index(el)) } }
+    remove_redpins.call(code)
+    remove_redpins.call(guess)
   end
 end

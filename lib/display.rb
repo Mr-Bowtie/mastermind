@@ -1,3 +1,5 @@
+require 'rainbow'
+
 module Display
   COLORS = { 'r' => Rainbow('  ').bg(:red),
              'p' => Rainbow('  ').bg(:purple),

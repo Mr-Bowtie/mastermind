@@ -1,0 +1,64 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/admin/programming/odin_project/Ruby_programming/mastermind/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210905.0/
+Array	main.rb	/^class Array$/;"	c
+COLORS	main.rb	/^  COLORS = { 'r' => Rainbow('  ').bg(:red),$/;"	C	module:Display
+Computer	main.rb	/^class Computer < Player$/;"	c	mixin:include:Display
+Display	main.rb	/^module Display$/;"	m
+Game	main.rb	/^class Game$/;"	c	mixin:include:Display
+Human	main.rb	/^class Human < Player$/;"	c	mixin:include:Display
+Player	main.rb	/^class Player$/;"	c	mixin:include:Display
+breaker	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+breaker=	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+breaker_round	main.rb	/^  def breaker_round$/;"	f	class:Game
+breaker_win?	main.rb	/^  def breaker_win?$/;"	f	class:Game
+code	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player
+code=	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player
+computer	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+computer=	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+determine_winner	main.rb	/^  def determine_winner$/;"	f	class:Game
+display_code	main.rb	/^  def display_code(code)$/;"	f	module:Display
+display_code_input_message	main.rb	/^  def display_code_input_message$/;"	f	module:Display
+display_goodbye	main.rb	/^  def display_goodbye$/;"	f	module:Display
+display_keypins	main.rb	/^  def display_keypins(keypins)$/;"	f	module:Display
+display_replay_message	main.rb	/^  def display_replay_message$/;"	f	module:Display
+display_result	main.rb	/^  def display_result(winner, maker_code)$/;"	f	module:Display
+display_roles_message	main.rb	/^  def display_roles_message$/;"	f	module:Display
+display_welcome_message	main.rb	/^  def display_welcome_message$/;"	f	module:Display
+generate_keypins	main.rb	/^  def generate_keypins(code, guess)$/;"	f	class:Game
+get_code	main.rb	/^  def get_code(player)$/;"	f	class:Game
+get_red_pins	main.rb	/^  def get_red_pins(code, guess)$/;"	f	class:Game
+human	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+human=	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+initialize	main.rb	/^  def initialize$/;"	f	class:Computer
+initialize	main.rb	/^  def initialize$/;"	f	class:Human
+initialize	main.rb	/^  def initialize$/;"	f	class:Player
+initialize	main.rb	/^  def initialize(human, computer)$/;"	f	class:Game
+intersection	main.rb	/^  def intersection(other_array)$/;"	f	class:Array
+keypins	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+keypins=	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+make_code	main.rb	/^  def make_code$/;"	f	class:Computer
+make_code	main.rb	/^  def make_code$/;"	f	class:Human
+maker	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+maker=	main.rb	/^  attr_accessor :human, :computer, :keypins, :maker, :breaker$/;"	A	class:Game
+name	main.rb	/^  attr_reader :name$/;"	A	class:Computer
+name	main.rb	/^  attr_reader :name$/;"	A	class:Human
+play_again?	main.rb	/^  def play_again?$/;"	f	class:Game
+play_game	main.rb	/^  def play_game$/;"	f	class:Game
+prompt	main.rb	/^  def prompt(input)$/;"	f	module:Display
+remove_correct_guesses	main.rb	/^  def remove_correct_guesses(code, redpins)$/;"	f	class:Game
+role	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player
+role=	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player
+set_roles	main.rb	/^  def set_roles$/;"	f	class:Game
+valid_input?	main.rb	/^  def valid_input?(array)$/;"	f	class:Player
+valid_role?	main.rb	/^  def valid_role?(input)$/;"	f	class:Game
+winner	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player
+winner=	main.rb	/^  attr_accessor :code, :role, :winner$/;"	A	class:Player

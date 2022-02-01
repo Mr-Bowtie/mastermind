@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'rainbow'
 require_relative 'game'
 require_relative 'player'
 require_relative 'human'
