@@ -3,12 +3,14 @@ require_relative 'array'
 
 class Game
   include Display
-  attr_accessor :human, :computer, :keypins, :maker, :breaker
+  attr_accessor :human, :computer, :keypins, :maker, :breaker, :redpins, :whitepins
 
   def initialize(human, computer)
     @human = human
     @computer = computer
     @keypins = []
+    @redpins = []
+    @whitepins = []
     @maker = ''
     @breaker = ''
   end
@@ -41,7 +43,7 @@ class Game
 
   def get_code(player)
     loop do
-      player.make_code
+      player.name == 'Player' ? player.make_code : player.make_code(redpins: self.redpins, whitepins: self.whitepins)
       break if player.valid_input?(player.code)
     end
   end
@@ -87,9 +89,10 @@ class Game
   def generate_keypins(code, guess)
     # resets keypins
     self.keypins = []
-    redpins = get_red_pin_indices(code, guess)
-    remove_correct_guesses(code, guess, redpins)
-    whitepins = get_white_pins(code, guess)
+    self.redpins = get_red_pin_indices(code, guess)
+    code = remove_correct_guesses(code, redpins)
+    guess = remove_correct_guesses(guess, redpins)
+    self.whitepins = get_white_pins(code, guess)
     redpins.size.times { keypins << 'red' }
     whitepins.size.times { keypins << 'white' }
   end
@@ -108,9 +111,7 @@ class Game
   end
 
   # * returns a new array of the elements whose index is not in the redpins array
-  def remove_correct_guesses(code, guess, redpins)
-    remove_redpins = lambda { |input| input.reject! { |el| redpins.include?(input.index(el)) } }
-    remove_redpins.call(code)
-    remove_redpins.call(guess)
+  def remove_correct_guesses(input, redpins)
+    input.reject { |el| redpins.include?(input.index(el)) }
   end
 end
