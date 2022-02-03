@@ -1,5 +1,3 @@
-require 'pry'
-
 class Computer < Player
   include Display
   attr_reader :name
